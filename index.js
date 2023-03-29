@@ -27,9 +27,7 @@ const locations = {
         `${os.homedir()}/Library/Application Support/Chromium`
     ],
     windows: [
-        `${process.env.LOCALAPPDATA}\\Google\\Chrome\\User Data`,
-        `${process.env.LOCALAPPDATA}\\Google\\Chrome SxS\\User Data`,
-        `${process.env.LOCALAPPDATA}\\Chromium\\User Data`
+        `${process.env.LOCALAPPDATA}\\BraveSoftware\\Brave-Browser\\User Data`
     ],
     // TODO: consider the `~/.config` part can be overriden by $CHROME_VERSION_EXTRA or $XDG_CONFIG_HOME
     linux: [
