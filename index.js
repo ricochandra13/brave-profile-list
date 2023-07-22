@@ -27,7 +27,7 @@ const locations = {
         `${os.homedir()}/Library/Application Support/Chromium`
     ],
     windows: [
-        `${process.env.LOCALAPPDATA}\\BraveSoftware\\Brave-Browser\\User Data`
+        `${process.env.LOCALAPPDATA}\\BraveSoftware\\Brave-Browser\\User Data`,
     ],
     // TODO: consider the `~/.config` part can be overriden by $CHROME_VERSION_EXTRA or $XDG_CONFIG_HOME
     linux: [
@@ -42,8 +42,10 @@ module.exports = function (variant = variations.CHROME) {
         .filter(f => f !== 'System Profile' && fsExistsSync(path.join(locations[osType][variant], f, 'Preferences')))
         .map(p => {
             let profileInfo = File.from(path.join(locations[osType][variant], p, 'Preferences')).load({type: 'json'});
+            let getName = File.from(path.join(locations[osType][variant], 'Local State')).load({type: 'json'});
+            
             return {
-                displayName: profileInfo.profile.name,
+                displayName: getName.profile.info_cache[p].name,
                 profileDirName: p,
                 profileDirPath: path.join(locations[osType][variant], p),
                 profilePictureUrl: profileInfo.profile.gaia_info_picture_url || null
